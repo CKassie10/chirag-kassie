@@ -22,7 +22,7 @@ export function About() {
         </div>
         <aside className="md:col-span-2 space-y-6">
           <Reveal delay={0.05}>
-            <div className="relative aspect-[2/3] w-full overflow-hidden rounded-2xl border border-soft bg-soft">
+            <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-soft bg-soft">
               <Image
                 src={profile.headshot}
                 alt={`${profile.name} portrait`}

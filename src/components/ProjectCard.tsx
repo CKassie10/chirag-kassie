@@ -51,7 +51,7 @@ export function ProjectCard({ project }: { project: Project }) {
             sizes="(min-width: 1024px) 45vw, 100vw"
             className={cn(
               (project.imageFit ?? "cover") === "contain"
-                ? "object-contain p-8"
+                ? "object-contain"
                 : "object-cover",
               "transition-transform duration-500 group-hover:scale-[1.03]",
             )}

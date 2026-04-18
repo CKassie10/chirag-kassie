@@ -21,7 +21,7 @@ export type Project = {
   links: ProjectLink[];
   accent: string; // tailwind gradient classes — used as fallback when no image
   image?: string; // absolute path under /public; rendered as the card preview when set
-  imageFit?: "cover" | "contain"; // defaults to "cover"; use "contain" for logos
+  imageFit?: "cover" | "contain"; // defaults to "cover"; use "contain" to preserve aspect ratio (logos, banners)
 };
 
 export const projects: Project[] = [
@@ -92,6 +92,8 @@ export const projects: Project[] = [
     featured: true,
     links: [],
     accent: "from-fuchsia-500/40 via-purple-500/20 to-transparent",
+    image: "/images/projects/optimult-cover.jpg",
+    imageFit: "contain",
   },
   {
     slug: "optimult-corporate-website",
@@ -106,11 +108,11 @@ export const projects: Project[] = [
     stack: ["HTML/CSS", "JavaScript", "Responsive Design", "Web Deployment"],
     category: "Web App",
     year: 2024,
-    status: "Live",
+    status: "Case Study",
     featured: false,
     links: [],
     accent: "from-amber-500/40 via-orange-500/20 to-transparent",
-    image: "/images/projects/optimult.jpg",
+    image: "/images/projects/optimult-cover.jpg",
     imageFit: "contain",
   },
   {
