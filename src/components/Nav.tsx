@@ -24,19 +24,61 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Lock body scroll while the mobile sheet is open; close on Escape.
+  useEffect(() => {
+    if (!open) return;
+    document.body.classList.add("no-scroll");
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.classList.remove("no-scroll");
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  // Close the sheet if the viewport grows past the md breakpoint.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onChange = () => {
+      if (mq.matches) setOpen(false);
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled
-          ? "border-b border-soft bg-background/70 backdrop-blur-xl"
-          : "border-b border-transparent",
-      )}
-    >
-      <nav className="container flex h-16 items-center justify-between">
+    <>
+      {/* Backdrop lives OUTSIDE <header>: header uses backdrop-filter, which
+          establishes a containing block for fixed descendants and would trap
+          the backdrop inside the header bounds. Rendering it as a sibling
+          lets `position: fixed` resolve against the viewport. */}
+      <button
+        type="button"
+        aria-label="Close menu"
+        aria-hidden={!open}
+        onClick={() => setOpen(false)}
+        tabIndex={-1}
+        className={cn(
+          "fixed inset-0 z-40 bg-background/60 backdrop-blur-sm transition-opacity duration-200 md:hidden",
+          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
+        )}
+      />
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+          "pt-[env(safe-area-inset-top)]",
+          scrolled || open
+            ? "border-b border-soft bg-background/80 backdrop-blur-xl"
+            : "border-b border-transparent",
+        )}
+      >
+      <nav className="container flex h-16 items-center justify-between gap-4">
         <Link
           href="#top"
-          className="group flex items-center gap-2 font-mono text-sm"
+          onClick={() => setOpen(false)}
+          className="group flex min-h-[44px] items-center gap-2 font-mono text-sm"
           aria-label="Home"
         >
           <span
@@ -58,7 +100,7 @@ export function Nav() {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="rounded-md px-3 py-2 text-sm text-muted transition-colors hover:text-foreground"
+                className="inline-flex min-h-[44px] items-center rounded-md px-3 py-2 text-sm text-muted transition-colors hover:text-foreground"
               >
                 {l.label}
               </Link>
@@ -69,7 +111,7 @@ export function Nav() {
         <div className="hidden items-center gap-2 md:flex">
           <a
             href={`mailto:${profile.email}`}
-            className="rounded-full border border-soft bg-soft px-4 py-2 text-sm transition-colors hover:bg-white/5"
+            className="inline-flex min-h-[44px] items-center rounded-full border border-soft bg-soft px-4 py-2 text-sm transition-colors hover:bg-white/5"
           >
             Get in touch
           </a>
@@ -77,12 +119,13 @@ export function Nav() {
 
         <button
           type="button"
-          aria-label="Toggle menu"
+          aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          className="rounded-md border border-soft bg-soft p-2 md:hidden"
+          aria-controls="mobile-nav"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-soft bg-soft md:hidden"
           onClick={() => setOpen((v) => !v)}
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
             {open ? (
               <path d="M6 6l12 12M6 18L18 6" />
             ) : (
@@ -92,31 +135,36 @@ export function Nav() {
         </button>
       </nav>
 
-      {open && (
-        <div className="border-t border-soft bg-background/90 backdrop-blur-xl md:hidden">
-          <ul className="container flex flex-col py-3">
-            {links.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-md px-3 py-3 text-sm text-muted hover:bg-white/5 hover:text-foreground"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-            <li className="mt-2">
-              <a
-                href={`mailto:${profile.email}`}
-                className="block rounded-md bg-white/10 px-3 py-3 text-center text-sm"
+      {/* Mobile sheet: drops down under the nav bar */}
+      <div
+        id="mobile-nav"
+        hidden={!open}
+        className="border-t border-soft bg-background/95 backdrop-blur-xl pb-[max(env(safe-area-inset-bottom),0.75rem)] md:hidden"
+      >
+        <ul className="container flex flex-col py-2">
+          {links.map((l) => (
+            <li key={l.href}>
+              <Link
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="block min-h-[48px] rounded-lg px-3 py-3 text-base text-muted transition-colors hover:bg-white/5 hover:text-foreground active:bg-white/10"
               >
-                Get in touch
-              </a>
+                {l.label}
+              </Link>
             </li>
-          </ul>
-        </div>
-      )}
-    </header>
+          ))}
+          <li className="mt-3">
+            <a
+              href={`mailto:${profile.email}`}
+              onClick={() => setOpen(false)}
+              className="flex min-h-[48px] items-center justify-center rounded-full bg-white px-4 py-3 text-sm font-medium text-black"
+            >
+              Get in touch
+            </a>
+          </li>
+        </ul>
+      </div>
+      </header>
+    </>
   );
 }

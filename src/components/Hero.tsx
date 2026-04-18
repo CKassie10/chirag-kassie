@@ -2,8 +2,9 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Download, Mail } from "lucide-react";
+import { useEffect, useState } from "react";
 import { profile } from "@/data/profile";
 
 const HeroScene = dynamic(() => import("./HeroScene"), {
@@ -17,17 +18,39 @@ const HeroScene = dynamic(() => import("./HeroScene"), {
 });
 
 export function Hero() {
+  const prefersReducedMotion = useReducedMotion();
+  // Only mount the 3D canvas when the viewport is large enough AND the user
+  // hasn't opted out of motion. On mobile / reduced-motion we render a
+  // lightweight static gradient "poster" that matches the scene aesthetically.
+  const [sceneReady, setSceneReady] = useState(false);
+  useEffect(() => {
+    // If the user toggles "Reduce motion" on at runtime, tear the canvas down.
+    if (prefersReducedMotion) {
+      setSceneReady(false);
+      return;
+    }
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setSceneReady(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, [prefersReducedMotion]);
+
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[92vh] items-center overflow-hidden pt-20"
+      className="relative isolate flex min-h-[100svh] items-center overflow-hidden pt-24 md:pt-28"
     >
       <div className="absolute inset-0 -z-10 bg-grid" aria-hidden />
       <div className="absolute inset-0 -z-10" aria-hidden>
-        <HeroScene />
+        {sceneReady ? (
+          <HeroScene />
+        ) : (
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.18),transparent_70%)]" />
+        )}
       </div>
 
-      <div className="container relative grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-12">
+      <div className="container relative grid w-full grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-7">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -46,7 +69,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.05 }}
-            className="text-balance text-5xl font-semibold leading-[1.02] tracking-tight md:text-7xl"
+            className="text-balance text-[clamp(2.25rem,7vw,4.5rem)] font-semibold leading-[1.05] tracking-tight lg:text-7xl lg:leading-[1.02]"
           >
             {profile.name}.
             <br />
@@ -59,7 +82,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
-            className="mt-6 max-w-xl text-pretty text-lg text-muted md:text-xl"
+            className="mt-5 max-w-xl text-pretty text-base text-muted sm:text-lg md:mt-6 md:text-xl"
           >
             {profile.tagline} Computer Science graduate building production
             web apps end-to-end — front-end, back-end, database, and deploy.
@@ -69,25 +92,25 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
-            className="mt-10 flex flex-wrap items-center gap-3"
+            className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center md:mt-10"
           >
             <Link
               href="#projects"
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-black transition-transform hover:-translate-y-0.5"
+              className="group inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-black transition-transform hover:-translate-y-0.5"
             >
               View projects
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <a
               href={profile.cvUrl}
-              className="inline-flex items-center gap-2 rounded-full border border-soft bg-soft px-5 py-3 text-sm font-medium transition-colors hover:bg-white/10"
+              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-soft bg-soft px-5 py-3 text-sm font-medium transition-colors hover:bg-white/10"
             >
               <Download className="h-4 w-4" />
               Download CV
             </a>
             <a
               href={`mailto:${profile.email}`}
-              className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-muted transition-colors hover:text-foreground"
+              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-muted transition-colors hover:text-foreground"
             >
               <Mail className="h-4 w-4" />
               Contact
@@ -105,7 +128,7 @@ export function Hero() {
       </div>
 
       <div
-        className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[11px] uppercase tracking-[0.25em] text-muted"
+        className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 font-mono text-[11px] uppercase tracking-[0.25em] text-muted sm:block md:bottom-8"
         aria-hidden
       >
         scroll
