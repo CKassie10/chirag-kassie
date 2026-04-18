@@ -21,6 +21,18 @@ export const experience: ExperienceEntry[] = [
     ],
   },
   {
+    role: "Tutor — Mathematics & English",
+    company: "Kumon · Ballito, KwaZulu-Natal",
+    period: "Jan 2024 — Mar 2024",
+    summary:
+      "Coached students across multiple skill levels with individualised learning plans.",
+    highlights: [
+      "Delivered structured, one-on-one coaching, explaining complex concepts clearly to students at different levels.",
+      "Designed and tracked individual learning plans against curriculum benchmarks — measurable progress reporting.",
+      "Used early-intervention techniques to catch knowledge gaps — a QA mindset that carries over into software work.",
+    ],
+  },
+  {
     role: "Student IT Support Technician",
     company: "UKZN Westville Campus · Durban, South Africa",
     period: "Feb 2023 — Jul 2023",
@@ -31,18 +43,6 @@ export const experience: ExperienceEntry[] = [
       "Configured and maintained network infrastructure — routers, firewalls, and Wi-Fi — for controlled, reliable access.",
       "Provided onsite and remote support across hardware, software, and connectivity issues; handled cloud and VOIP account admin, backups, and call-quality troubleshooting.",
       "Used AI and scripting tools to automate repetitive support workflows and reduce manual effort.",
-    ],
-  },
-  {
-    role: "Tutor — Mathematics & English",
-    company: "Kumon · Ballito, KwaZulu-Natal",
-    period: "Jan 2024 — Mar 2024",
-    summary:
-      "Coached students across multiple skill levels with individualised learning plans.",
-    highlights: [
-      "Delivered structured, one-on-one coaching, explaining complex concepts clearly to students at different levels.",
-      "Designed and tracked individual learning plans against curriculum benchmarks — measurable progress reporting.",
-      "Used early-intervention techniques to catch knowledge gaps — a QA mindset that carries over into software work.",
     ],
   },
 ];
