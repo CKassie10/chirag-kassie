@@ -24,68 +24,106 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "atlas-analytics",
-    title: "Atlas Analytics",
-    tagline: "A self-hosted product analytics platform.",
+    slug: "travelling-south-africa",
+    title: "Travelling South Africa",
+    tagline: "A live travel content platform.",
     description:
-      "A privacy-first analytics platform that teams can run on their own infrastructure — with sub-second dashboards and zero third-party trackers.",
+      "A production travel content platform I designed, built, and currently maintain as an independent contractor with Industrial Growth Hub — from UI/UX through database, hosting, and DNS.",
     problem:
-      "Small teams wanted product insights without shipping user data to third parties or paying per-seat SaaS pricing.",
+      "The client needed a credible, mobile-first home for travel content that non-technical staff could keep current without touching code.",
     solution:
-      "Designed an ingest pipeline on top of ClickHouse with a React dashboard, feature flags, and a CLI for self-hosted deployment in under 5 minutes.",
-    stack: ["Next.js", "TypeScript", "ClickHouse", "Node.js", "Docker", "Terraform"],
+      "Shipped a responsive, mobile-first site with a content-management workflow so the client can publish and update content themselves, plus hosting, DNS, and ongoing maintenance.",
+    stack: ["JavaScript", "HTML/CSS", "SQL", "Responsive Design", "DNS & Hosting"],
     category: "Web App",
     year: 2025,
     status: "Live",
     featured: true,
     links: [
-      { label: "Live Site", href: "https://example.com/atlas", kind: "live" },
-      { label: "Source", href: "https://github.com/CKassie10", kind: "source" },
-      { label: "Case Study", href: "#", kind: "writeup" },
+      {
+        label: "Live Site",
+        href: "https://travellingsouthafrica.co.za",
+        kind: "live",
+      },
     ],
     accent: "from-indigo-500/40 via-sky-500/20 to-transparent",
   },
   {
-    slug: "prism-design-system",
-    title: "Prism Design System",
-    tagline: "A tokens-first design system for product teams.",
+    slug: "easy2find-rentals",
+    title: "Easy2Find Rentals",
+    tagline: "A live rentals listings website.",
     description:
-      "A component library and token pipeline shared across web and mobile, with automated accessibility checks and visual regression testing built in.",
+      "A production rentals website — another live client build under Industrial Growth Hub — where listings are managed by the client through a dynamic content layer.",
     problem:
-      "Multiple product surfaces were drifting apart visually, and small UI changes kept breaking accessibility.",
+      "The client wanted a clean, self-manageable listings experience that scales as inventory grows and loads well on phones.",
     solution:
-      "Built a token pipeline (Figma → JSON → code), a React + React Native component library, and a Storybook with automated a11y and visual tests.",
-    stack: ["React", "TypeScript", "Storybook", "Style Dictionary", "Playwright"],
-    category: "Design System",
-    year: 2024,
+      "Designed the schema, built the responsive UI and listing flows, integrated dynamic content management, and handled deployment + ongoing maintenance.",
+    stack: ["JavaScript", "HTML/CSS", "SQL", "Relational DB Design", "Web Deployment"],
+    category: "Web App",
+    year: 2025,
     status: "Live",
     featured: true,
     links: [
-      { label: "Live Docs", href: "https://example.com/prism", kind: "live" },
-      { label: "Source", href: "https://github.com/CKassie10", kind: "source" },
+      {
+        label: "Live Site",
+        href: "https://easy2findrental.co.za",
+        kind: "live",
+      },
     ],
+    accent: "from-emerald-500/40 via-teal-500/20 to-transparent",
+  },
+  {
+    slug: "timesheet-disbursement-system",
+    title: "Timesheet & Disbursement System",
+    tagline: "A full-stack replacement for a manual payroll workflow.",
+    description:
+      "A full-stack timesheet and financial disbursement system delivered for a live business client, replacing a manual process with an automated, auditable tool.",
+    problem:
+      "The client's existing timesheet and disbursement workflow was manual, slow, and error-prone — they needed a system the team could trust.",
+    solution:
+      "Owned the full SDLC: requirements gathering with the client, database schema, UI, and business logic, then handover — the core trade-off was scope vs. timeline, resolved by cutting non-essential reporting in v1.",
+    stack: ["Python", "SQL", "OOP", "Systems Analysis & Design"],
+    category: "Web App",
+    year: 2024,
+    status: "Case Study",
+    featured: true,
+    links: [],
     accent: "from-fuchsia-500/40 via-purple-500/20 to-transparent",
   },
   {
-    slug: "signal-cli",
-    title: "Signal CLI",
-    tagline: "A developer tool for tracing flaky tests.",
+    slug: "optimult-corporate-website",
+    title: "Optimult Corporate Website",
+    tagline: "A corporate website, wireframe to deploy.",
     description:
-      "A command-line tool that fingerprints test failures across CI runs, surfacing the flakiest specs before they erode trust in the suite.",
+      "Designed and developed a professional corporate website for Optimult, managing the full cycle from wireframing through to deployment.",
     problem:
-      "Engineering teams were losing hours a week re-running flaky CI builds with no clear picture of which tests were actually unreliable.",
+      "The client needed a credible online presence that reflected their brand and worked well on the devices their prospects actually use.",
     solution:
-      "Built a CLI that ingests JUnit reports, clusters failure signatures, and produces a ranked dashboard — with a GitHub Action for drop-in integration.",
-    stack: ["Go", "PostgreSQL", "GitHub Actions", "React"],
-    category: "Tooling",
+      "Wireframed the layout, designed the UI, built the front-end, and deployed the site — ending with a clean hand-off and ongoing support.",
+    stack: ["HTML/CSS", "JavaScript", "Responsive Design", "Web Deployment"],
+    category: "Web App",
     year: 2024,
-    status: "In Progress",
-    featured: true,
-    links: [
-      { label: "Source", href: "https://github.com/CKassie10", kind: "source" },
-      { label: "Write-up", href: "#", kind: "writeup" },
-    ],
-    accent: "from-emerald-500/40 via-teal-500/20 to-transparent",
+    status: "Live",
+    featured: false,
+    links: [],
+    accent: "from-amber-500/40 via-orange-500/20 to-transparent",
+  },
+  {
+    slug: "money-heist-quiz-game",
+    title: "Story-Based Quiz Game",
+    tagline: "An interactive, Money Heist-themed quiz game.",
+    description:
+      "An interactive story-driven quiz game with custom animations, timed rounds, stage progression, and conditional outcomes.",
+    problem:
+      "An academic brief that pushed me to combine game-state logic with a polished, narrative UI — not just a straight-line quiz.",
+    solution:
+      "Built stage progression, timers, and conditional outcomes with custom animations, keeping the game loop feeling tight and the UX intentional.",
+    stack: ["JavaScript", "HTML/CSS", "OOP", "Game Logic"],
+    category: "Other",
+    year: 2023,
+    status: "Case Study",
+    featured: false,
+    links: [],
+    accent: "from-rose-500/40 via-pink-500/20 to-transparent",
   },
 ];
 

@@ -8,38 +8,41 @@ export type ExperienceEntry = {
 
 export const experience: ExperienceEntry[] = [
   {
-    role: "Software Engineer",
-    company: "Independent / Freelance",
-    period: "2024 — Present",
+    role: "Full-Stack Developer (Independent Contractor)",
+    company: "Industrial Growth Hub · Remote, South Africa",
+    period: "Jan 2025 — Present",
     summary:
-      "Partnering with early-stage teams to ship production web apps, design systems, and internal tools.",
+      "Designing, building, and maintaining production websites for real clients end-to-end.",
     highlights: [
-      "Led greenfield Next.js rebuilds that cut page load times by 40% and lifted Lighthouse scores above 95.",
-      "Designed data-driven content systems so non-engineers can ship updates without touching code.",
-      "Set up CI/CD, preview deployments, and observability from day one.",
+      "Built and currently maintain two live platforms: travellingsouthafrica.co.za (travel content) and an Easy2Find rentals site — both serving real users.",
+      "Own the full SDLC: requirements gathering, UI/UX, front-end, back-end, database design, hosting, DNS, and ongoing maintenance.",
+      "Shipped responsive, mobile-first interfaces with content-management workflows so clients can update listings and content themselves.",
+      "Collaborate directly with client stakeholders to translate business objectives into working software.",
     ],
   },
   {
-    role: "Full-Stack Developer",
-    company: "Early-Stage Startup",
-    period: "2022 — 2024",
+    role: "Tutor — Mathematics & English",
+    company: "Kumon · Ballito, KwaZulu-Natal",
+    period: "Jan 2024 — Mar 2024",
     summary:
-      "Owned end-to-end features across the stack — from schema design to polished UI.",
+      "Coached students across multiple skill levels with individualised learning plans.",
     highlights: [
-      "Shipped a real-time collaboration feature used daily by 10k+ users.",
-      "Reduced p95 API latency by 3x by reworking hot paths and adding targeted caching.",
-      "Mentored two junior engineers on code review, testing, and system design.",
+      "Delivered structured, one-on-one coaching, explaining complex concepts clearly to students at different levels.",
+      "Designed and tracked individual learning plans against curriculum benchmarks — measurable progress reporting.",
+      "Used early-intervention techniques to catch knowledge gaps — a QA mindset that carries over into software work.",
     ],
   },
   {
-    role: "Software Engineering Intern",
-    company: "Product Team",
-    period: "2021 — 2022",
+    role: "Student IT Support Technician",
+    company: "UKZN Westville Campus · Durban, South Africa",
+    period: "Feb 2023 — Jul 2023",
     summary:
-      "Contributed to a customer-facing dashboard used by enterprise clients.",
+      "Supported campus infrastructure, identity, and end-user systems across labs and staff.",
     highlights: [
-      "Rewrote a flaky reporting module, eliminating the top source of weekly on-call pages.",
-      "Added integration tests that caught three regressions before they reached production.",
+      "Administered Windows Server and Active Directory: user provisioning, Group Policy Objects (GPOs), and routine maintenance.",
+      "Configured and maintained network infrastructure — routers, firewalls, and Wi-Fi — for controlled, reliable access.",
+      "Provided onsite and remote support across hardware, software, and connectivity issues; handled cloud and VOIP account admin, backups, and call-quality troubleshooting.",
+      "Used AI and scripting tools to automate repetitive support workflows and reduce manual effort.",
     ],
   },
 ];
