@@ -19,7 +19,9 @@ export type Project = {
   status: ProjectStatus;
   featured: boolean;
   links: ProjectLink[];
-  accent: string; // tailwind gradient classes
+  accent: string; // tailwind gradient classes — used as fallback when no image
+  image?: string; // absolute path under /public; rendered as the card preview when set
+  imageFit?: "cover" | "contain"; // defaults to "cover"; use "contain" for logos
 };
 
 export const projects: Project[] = [
@@ -46,6 +48,7 @@ export const projects: Project[] = [
       },
     ],
     accent: "from-indigo-500/40 via-sky-500/20 to-transparent",
+    image: "/images/projects/travelling-south-africa.jpg",
   },
   {
     slug: "easy2find-rentals",
@@ -70,6 +73,7 @@ export const projects: Project[] = [
       },
     ],
     accent: "from-emerald-500/40 via-teal-500/20 to-transparent",
+    image: "/images/projects/easy2find-rentals.jpg",
   },
   {
     slug: "timesheet-disbursement-system",
@@ -106,6 +110,8 @@ export const projects: Project[] = [
     featured: false,
     links: [],
     accent: "from-amber-500/40 via-orange-500/20 to-transparent",
+    image: "/images/projects/optimult.jpg",
+    imageFit: "contain",
   },
   {
     slug: "money-heist-quiz-game",

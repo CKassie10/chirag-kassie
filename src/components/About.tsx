@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
 import { profile } from "@/data/profile";
@@ -19,8 +20,24 @@ export function About() {
             ))}
           </div>
         </div>
-        <aside className="md:col-span-2">
-          <Reveal delay={0.1}>
+        <aside className="md:col-span-2 space-y-6">
+          <Reveal delay={0.05}>
+            <div className="relative aspect-[2/3] w-full overflow-hidden rounded-2xl border border-soft bg-soft">
+              <Image
+                src={profile.headshot}
+                alt={`${profile.name} portrait`}
+                fill
+                sizes="(min-width: 768px) 40vw, 100vw"
+                className="object-cover"
+                priority={false}
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(6,8,15,0.6)_100%)]"
+              />
+            </div>
+          </Reveal>
+          <Reveal delay={0.12}>
             <dl className="grid grid-cols-2 gap-4">
               <Stat label="Degree" value="BSc Computer Science" />
               <Stat label="University" value="UKZN · 2022–2025" />

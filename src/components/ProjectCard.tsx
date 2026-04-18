@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, PlayCircle, FileText } from "lucide-react";
 import { GithubIcon } from "./BrandIcons";
@@ -33,7 +34,7 @@ export function ProjectCard({ project }: { project: Project }) {
       transition={{ type: "spring", stiffness: 260, damping: 22 }}
       className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-soft bg-soft backdrop-blur-sm"
     >
-      {/* Preview area with animated gradient accent */}
+      {/* Preview area — real screenshot/logo when available, gradient accent as fallback */}
       <div className="relative aspect-[16/10] overflow-hidden">
         <div
           className={cn(
@@ -42,11 +43,27 @@ export function ProjectCard({ project }: { project: Project }) {
           )}
           aria-hidden
         />
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-60 [background-image:radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.25),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(255,255,255,0.15),transparent_45%)]"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_60%,rgba(6,8,15,0.9)_100%)]" aria-hidden />
+        {project.image && (
+          <Image
+            src={project.image}
+            alt={`${project.title} preview`}
+            fill
+            sizes="(min-width: 1024px) 45vw, 100vw"
+            className={cn(
+              (project.imageFit ?? "cover") === "contain"
+                ? "object-contain p-8"
+                : "object-cover",
+              "transition-transform duration-500 group-hover:scale-[1.03]",
+            )}
+          />
+        )}
+        {!project.image && (
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-60 [background-image:radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.25),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(255,255,255,0.15),transparent_45%)]"
+          />
+        )}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(6,8,15,0.92)_100%)]" aria-hidden />
         <div className="absolute left-5 top-5 flex items-center gap-2">
           <span
             className={cn(

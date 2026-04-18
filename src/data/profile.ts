@@ -8,6 +8,7 @@ export const profile = {
   github: "https://github.com/CKassie10",
   linkedin: "https://www.linkedin.com/in/chirag-kassie",
   cvUrl: "/cv.pdf",
+  headshot: "/images/chirag-kassie.jpg",
   about: [
     "I'm a Computer Science graduate from the University of KwaZulu-Natal and a full-stack developer currently shipping live production websites as an independent contractor with Industrial Growth Hub.",
     "I own the full delivery lifecycle — requirements, UI/UX, front-end, back-end, database design, hosting and DNS — and I like working directly with clients to turn fuzzy business goals into software that runs in the real world.",
