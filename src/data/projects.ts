@@ -62,7 +62,13 @@ export const projects: Project[] = [
     year: 2025,
     status: "Live",
     featured: true,
-    links: [],
+    links: [
+      {
+        label: "Live Site",
+        href: "https://easy2findrental.co.za",
+        kind: "live",
+      },
+    ],
     accent: "from-emerald-500/40 via-teal-500/20 to-transparent",
   },
   {
