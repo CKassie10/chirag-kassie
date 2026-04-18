@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, MeshDistortMaterial } from "@react-three/drei";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import type { Mesh, Points } from "three";
 
 function Orb() {
@@ -39,18 +39,20 @@ function Orb() {
   );
 }
 
-function Particles() {
+function Particles({ count = 180 }: { count?: number }) {
   const ref = useRef<Points>(null);
-  const count = 180;
-  const positions = new Float32Array(count * 3);
-  for (let i = 0; i < count; i++) {
-    const r = 4 + Math.random() * 3;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(2 * Math.random() - 1);
-    positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-    positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-    positions[i * 3 + 2] = r * Math.cos(phi);
-  }
+  const positions = useMemo(() => {
+    const arr = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const r = 4 + Math.random() * 3;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      arr[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      arr[i * 3 + 2] = r * Math.cos(phi);
+    }
+    return arr;
+  }, [count]);
   useFrame((_, delta) => {
     if (ref.current) ref.current.rotation.y += delta * 0.03;
   });
@@ -77,18 +79,20 @@ function Particles() {
 }
 
 export default function HeroScene() {
+  // Tighter DPR cap on high-density displays keeps GPU cost sane on tablets.
   return (
     <Canvas
-      dpr={[1, 2]}
+      dpr={[1, 1.75]}
       camera={{ position: [0, 0, 5], fov: 45 }}
-      gl={{ antialias: true, alpha: true }}
+      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       aria-hidden
+      frameloop="always"
     >
       <ambientLight intensity={0.4} />
       <directionalLight position={[3, 3, 5]} intensity={1.2} />
       <pointLight position={[-3, -2, -2]} intensity={0.8} color="#ec4899" />
       <Orb />
-      <Particles />
+      <Particles count={140} />
     </Canvas>
   );
 }

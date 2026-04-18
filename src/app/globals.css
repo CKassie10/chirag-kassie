@@ -18,10 +18,13 @@ body {
     "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
   scroll-behavior: smooth;
+  /* Account for iOS notches / dynamic islands on full-bleed content */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -30,7 +33,15 @@ body {
     radial-gradient(ellipse 60% 50% at 100% 30%, rgba(56, 189, 248, 0.10), transparent 60%),
     radial-gradient(ellipse 50% 40% at 0% 70%, rgba(236, 72, 153, 0.08), transparent 60%);
   background-attachment: fixed;
-  min-height: 100vh;
+  min-height: 100svh;
+  /* Prevent blurred decorative elements from introducing horizontal scroll on small screens */
+  overflow-x: hidden;
+}
+
+/* Lock body scroll when a fullscreen overlay (e.g. mobile nav) is open */
+body.no-scroll {
+  overflow: hidden;
+  touch-action: none;
 }
 
 /* Subtle grid backdrop */
@@ -92,6 +103,13 @@ body {
 }
 .animate-floaty {
   animation: floaty 6s ease-in-out infinite;
+}
+
+/* Make sure interactive elements have visible focus outlines on keyboard */
+:where(a, button, [role="button"], input, select, textarea):focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {

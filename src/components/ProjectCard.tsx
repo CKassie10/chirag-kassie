@@ -35,7 +35,7 @@ export function ProjectCard({ project }: { project: Project }) {
       className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-soft bg-soft backdrop-blur-sm"
     >
       {/* Preview area — real screenshot/logo when available, gradient accent as fallback */}
-      <div className="relative aspect-[16/10] overflow-hidden">
+      <div className="relative aspect-[16/10] overflow-hidden sm:aspect-[16/9] lg:aspect-[16/10]">
         <div
           className={cn(
             "absolute inset-0 bg-gradient-to-br",
@@ -48,7 +48,7 @@ export function ProjectCard({ project }: { project: Project }) {
             src={project.image}
             alt={`${project.title} preview`}
             fill
-            sizes="(min-width: 1024px) 45vw, 100vw"
+            sizes="(min-width: 1024px) 45vw, (min-width: 768px) 50vw, 100vw"
             className={cn(
               (project.imageFit ?? "cover") === "contain"
                 ? "object-contain"
@@ -64,7 +64,7 @@ export function ProjectCard({ project }: { project: Project }) {
           />
         )}
         <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(6,8,15,0.92)_100%)]" aria-hidden />
-        <div className="absolute left-5 top-5 flex items-center gap-2">
+        <div className="absolute left-4 top-4 flex items-center gap-2 sm:left-5 sm:top-5">
           <span
             className={cn(
               "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] ring-1",
@@ -78,12 +78,12 @@ export function ProjectCard({ project }: { project: Project }) {
             {project.year}
           </span>
         </div>
-        <div className="absolute inset-0 flex items-end p-6">
+        <div className="absolute inset-0 flex items-end p-5 sm:p-6">
           <div>
             <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/70">
               {project.category}
             </div>
-            <h3 className="mt-1 text-2xl font-semibold tracking-tight text-white">
+            <h3 className="mt-1 text-xl font-semibold tracking-tight text-white sm:text-2xl">
               {project.title}
             </h3>
             <p className="mt-1 text-sm text-white/80">{project.tagline}</p>
@@ -91,7 +91,7 @@ export function ProjectCard({ project }: { project: Project }) {
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col p-6">
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
         <p className="text-sm leading-relaxed text-muted">
           {project.description}
         </p>
@@ -130,7 +130,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 href={l.href}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full border border-soft bg-white/[0.03] px-3 py-1.5 text-xs transition-colors hover:border-white/20 hover:bg-white/10"
+                className="inline-flex min-h-[40px] items-center gap-1.5 rounded-full border border-soft bg-white/[0.03] px-3.5 py-2 text-xs transition-colors hover:border-white/20 hover:bg-white/10"
               >
                 {linkIcon(l.kind)}
                 {l.label}

@@ -17,19 +17,19 @@ export function Skills() {
       title="A deep toolkit, used in anger."
       description="Grouped by discipline. Levels reflect real production use — not tutorials."
     >
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
         {skillGroups.map((group, i) => (
           <Reveal key={group.title} delay={i * 0.05}>
-            <article className="group relative h-full overflow-hidden rounded-2xl border border-soft bg-soft p-6 transition-colors hover:bg-white/[0.05]">
+            <article className="group relative h-full overflow-hidden rounded-2xl border border-soft bg-soft p-5 transition-colors hover:bg-white/[0.05] sm:p-6">
               <div
                 aria-hidden
                 className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-indigo-500/10 blur-3xl transition-opacity group-hover:opacity-100"
               />
-              <h3 className="text-lg font-semibold tracking-tight">
+              <h3 className="text-base font-semibold tracking-tight sm:text-lg">
                 {group.title}
               </h3>
               <p className="mt-1 text-sm text-muted">{group.description}</p>
-              <ul className="mt-5 flex flex-wrap gap-2">
+              <ul className="mt-4 flex flex-wrap gap-2 sm:mt-5">
                 {group.skills.map((s) => (
                   <li
                     key={s.name}

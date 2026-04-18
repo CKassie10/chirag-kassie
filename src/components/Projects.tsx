@@ -23,15 +23,24 @@ export function Projects() {
       title="Projects, shipped with intent."
       description="Real problems, real trade-offs. New projects are added via a single config file — this section scales as the work does."
     >
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex flex-wrap gap-2">
+      <div
+        role="toolbar"
+        aria-label="Project filters"
+        className="mb-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between"
+      >
+        <div
+          className="-mx-5 flex snap-x snap-mandatory gap-2 overflow-x-auto px-5 pb-2 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0"
+          // Horizontal scroll chip-row on mobile prevents line-wrap + gives
+          // a familiar mobile UI without sacrificing larger touch targets.
+        >
           {projectCategories.map((cat) => (
             <button
               key={cat}
               type="button"
               onClick={() => setFilter(cat)}
+              aria-pressed={filter === cat}
               className={cn(
-                "rounded-full border px-3 py-1.5 text-xs transition-colors",
+                "inline-flex min-h-[40px] shrink-0 snap-start items-center rounded-full border px-4 py-2 text-sm transition-colors sm:min-h-[36px] sm:text-xs",
                 filter === cat
                   ? "border-white/25 bg-white/10 text-foreground"
                   : "border-soft bg-soft text-muted hover:border-white/15 hover:text-foreground",
@@ -44,7 +53,7 @@ export function Projects() {
         <button
           type="button"
           onClick={() => setShowAll((v) => !v)}
-          className="font-mono text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-foreground"
+          className="inline-flex min-h-[40px] shrink-0 items-center self-start rounded-full border border-soft bg-soft px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted transition-colors hover:border-white/15 hover:text-foreground sm:self-auto sm:border-0 sm:bg-transparent sm:px-0"
         >
           {showAll ? "Show featured" : "Show all"}
         </button>
