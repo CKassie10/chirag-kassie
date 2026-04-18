@@ -61,8 +61,8 @@ export function Hero() {
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
             className="mt-6 max-w-xl text-pretty text-lg text-muted md:text-xl"
           >
-            {profile.tagline} I build fast, accessible products with a
-            designer&apos;s eye and an engineer&apos;s discipline.
+            {profile.tagline} Computer Science graduate building production
+            web apps end-to-end — front-end, back-end, database, and deploy.
           </motion.p>
 
           <motion.div

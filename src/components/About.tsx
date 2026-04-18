@@ -22,9 +22,9 @@ export function About() {
         <aside className="md:col-span-2">
           <Reveal delay={0.1}>
             <dl className="grid grid-cols-2 gap-4">
-              <Stat label="Years building" value="4+" />
-              <Stat label="Projects shipped" value="20+" />
-              <Stat label="Focus" value="Web + Tools" />
+              <Stat label="Degree" value="BSc Computer Science" />
+              <Stat label="University" value="UKZN · 2022–2025" />
+              <Stat label="Live client sites" value="2 in production" />
               <Stat label="Based" value={profile.location} />
             </dl>
           </Reveal>
