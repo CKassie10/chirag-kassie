@@ -49,15 +49,31 @@ export function Nav() {
   }, []);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        "pt-[env(safe-area-inset-top)]",
-        scrolled || open
-          ? "border-b border-soft bg-background/80 backdrop-blur-xl"
-          : "border-b border-transparent",
-      )}
-    >
+    <>
+      {/* Backdrop lives OUTSIDE <header>: header uses backdrop-filter, which
+          establishes a containing block for fixed descendants and would trap
+          the backdrop inside the header bounds. Rendering it as a sibling
+          lets `position: fixed` resolve against the viewport. */}
+      <button
+        type="button"
+        aria-label="Close menu"
+        aria-hidden={!open}
+        onClick={() => setOpen(false)}
+        tabIndex={-1}
+        className={cn(
+          "fixed inset-0 z-40 bg-background/60 backdrop-blur-sm transition-opacity duration-200 md:hidden",
+          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
+        )}
+      />
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+          "pt-[env(safe-area-inset-top)]",
+          scrolled || open
+            ? "border-b border-soft bg-background/80 backdrop-blur-xl"
+            : "border-b border-transparent",
+        )}
+      >
       <nav className="container flex h-16 items-center justify-between gap-4">
         <Link
           href="#top"
@@ -119,45 +135,36 @@ export function Nav() {
         </button>
       </nav>
 
-      {/* Mobile sheet: full-viewport overlay so the whole nav feels deliberate on touch */}
+      {/* Mobile sheet: drops down under the nav bar */}
       <div
         id="mobile-nav"
         hidden={!open}
-        className="md:hidden"
+        className="border-t border-soft bg-background/95 backdrop-blur-xl pb-[max(env(safe-area-inset-bottom),0.75rem)] md:hidden"
       >
-        {/* Backdrop — tap to dismiss */}
-        <button
-          type="button"
-          aria-label="Close menu"
-          onClick={() => setOpen(false)}
-          className="fixed inset-0 top-16 -z-10 bg-background/60 backdrop-blur-sm"
-          tabIndex={-1}
-        />
-        <div className="border-t border-soft bg-background/95 backdrop-blur-xl pb-[max(env(safe-area-inset-bottom),0.75rem)]">
-          <ul className="container flex flex-col py-2">
-            {links.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="block min-h-[48px] rounded-lg px-3 py-3 text-base text-muted transition-colors hover:bg-white/5 hover:text-foreground active:bg-white/10"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-            <li className="mt-3">
-              <a
-                href={`mailto:${profile.email}`}
+        <ul className="container flex flex-col py-2">
+          {links.map((l) => (
+            <li key={l.href}>
+              <Link
+                href={l.href}
                 onClick={() => setOpen(false)}
-                className="flex min-h-[48px] items-center justify-center rounded-full bg-white px-4 py-3 text-sm font-medium text-black"
+                className="block min-h-[48px] rounded-lg px-3 py-3 text-base text-muted transition-colors hover:bg-white/5 hover:text-foreground active:bg-white/10"
               >
-                Get in touch
-              </a>
+                {l.label}
+              </Link>
             </li>
-          </ul>
-        </div>
+          ))}
+          <li className="mt-3">
+            <a
+              href={`mailto:${profile.email}`}
+              onClick={() => setOpen(false)}
+              className="flex min-h-[48px] items-center justify-center rounded-full bg-white px-4 py-3 text-sm font-medium text-black"
+            >
+              Get in touch
+            </a>
+          </li>
+        </ul>
       </div>
-    </header>
+      </header>
+    </>
   );
 }
