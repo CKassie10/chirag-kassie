@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# chirag-kassie
 
-## Getting Started
+Personal website for [Chirag Kassie](https://github.com/CKassie10) — built for job applications and recruiter review.
 
-First, run the development server:
+Designed to be **dark, fast, and scalable**: new projects are added via a single TypeScript config (`src/data/projects.ts`) and the UI adapts automatically.
+
+## Stack
+
+- **Next.js 14** (App Router) + **TypeScript**
+- **Tailwind CSS** with a dark-first custom theme
+- **React Three Fiber** / **@react-three/drei** for the hero 3D scene (lazy-loaded, `prefers-reduced-motion` aware)
+- **Framer Motion** for scroll-based reveals and micro-interactions
+- **lucide-react** for icons
+
+## Quick start
 
 ```bash
+npm install --legacy-peer-deps
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# → http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts: `npm run build`, `npm run start`, `npm run lint`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Editing content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All content lives in `src/data/`:
 
-## Learn More
+| File | What it controls |
+| --- | --- |
+| `profile.ts` | Name, title, tagline, about paragraphs, contact links, CV URL |
+| `projects.ts` | The Projects section (featured/all, filters, links, status, stack) |
+| `skills.ts` | Skill groups and per-skill level (`core` / `strong` / `working`) |
+| `experience.ts` | Timeline entries (role, company, period, highlights) |
 
-To learn more about Next.js, take a look at the following resources:
+### Adding a new project
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Append an entry to the `projects` array in `src/data/projects.ts`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```ts
+{
+  slug: "my-new-thing",
+  title: "My New Thing",
+  tagline: "A one-line hook.",
+  description: "What it is, for whom, and why it matters.",
+  problem: "The specific problem it solves.",
+  solution: "The approach and the interesting trade-offs.",
+  stack: ["Next.js", "TypeScript", "Postgres"],
+  category: "Web App", // or "Tooling" | "Design System" | "Infrastructure" | "Other"
+  year: 2025,
+  status: "Live", // or "In Progress" | "Case Study" | "Archived"
+  featured: true,
+  links: [
+    { label: "Live Site", href: "https://…", kind: "live" },
+    { label: "Source",    href: "https://github.com/…", kind: "source" },
+  ],
+  accent: "from-indigo-500/40 via-sky-500/20 to-transparent",
+}
+```
 
-## Deploy on Vercel
+`featured: true` makes the card appear in the default Projects view; toggle **Show all** on the site to see everything. Categories are derived automatically for the filter bar.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploying to Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Import the GitHub repo in [Vercel](https://vercel.com/new).
+2. Framework preset: **Next.js** (no extra config needed).
+3. Every PR gets an automatic preview URL posted back to the PR.
+
+## Accessibility & performance
+
+- Skip-to-content link
+- Semantic landmarks (`<nav>`, `<main>`, `<section>`, `<ol>` timeline)
+- Focus-visible styles on all interactive elements
+- `prefers-reduced-motion` disables animations
+- 3D scene is `dynamic(…, { ssr: false })` and only mounts on the client
+- Fonts loaded with `next/font` + `display: swap`
+
+## License
+
+Personal project — content and brand are © Chirag Kassie.
