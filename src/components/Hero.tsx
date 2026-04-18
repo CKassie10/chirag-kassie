@@ -24,7 +24,11 @@ export function Hero() {
   // lightweight static gradient "poster" that matches the scene aesthetically.
   const [sceneReady, setSceneReady] = useState(false);
   useEffect(() => {
-    if (prefersReducedMotion) return;
+    // If the user toggles "Reduce motion" on at runtime, tear the canvas down.
+    if (prefersReducedMotion) {
+      setSceneReady(false);
+      return;
+    }
     const mq = window.matchMedia("(min-width: 768px)");
     const update = () => setSceneReady(mq.matches);
     update();
