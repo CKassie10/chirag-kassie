@@ -73,7 +73,7 @@ export function Hero() {
           >
             {profile.name}.
             <br />
-            <span className="bg-gradient-to-br from-indigo-300 via-sky-300 to-fuchsia-300 bg-clip-text text-transparent">
+            <span className="inline-block bg-gradient-to-br from-indigo-300 via-sky-300 to-fuchsia-300 bg-clip-text text-transparent">
               {profile.title}.
             </span>
           </motion.h1>
