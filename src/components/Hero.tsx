@@ -19,12 +19,9 @@ const HeroScene = dynamic(() => import("./HeroScene"), {
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion();
-  // Only mount the 3D canvas when the viewport is large enough AND the user
-  // hasn't opted out of motion. On mobile / reduced-motion we render a
-  // lightweight static gradient "poster" that matches the scene aesthetically.
   const [sceneReady, setSceneReady] = useState(false);
+
   useEffect(() => {
-    // If the user toggles "Reduce motion" on at runtime, tear the canvas down.
     if (prefersReducedMotion) {
       setSceneReady(false);
       return;
@@ -73,7 +70,8 @@ export function Hero() {
           >
             {profile.name}.
             <br />
-            <span className="inline-block bg-gradient-to-br from-indigo-300 via-sky-300 to-fuchsia-300 bg-clip-text text-transparent">
+            {/* ✅ FIXED: w-fit added here, correctly placed */}
+            <span className="inline-block w-fit bg-gradient-to-br from-indigo-300 via-sky-300 to-fuchsia-300 bg-clip-text text-transparent">
               {profile.title}.
             </span>
           </motion.h1>
@@ -101,14 +99,14 @@ export function Hero() {
               View projects
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
-            <a
+            
               href={profile.cvUrl}
               className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-soft bg-soft px-5 py-3 text-sm font-medium transition-colors hover:bg-white/10"
             >
               <Download className="h-4 w-4" />
               Download CV
             </a>
-            <a
+            
               href={`mailto:${profile.email}`}
               className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-muted transition-colors hover:text-foreground"
             >
@@ -119,7 +117,6 @@ export function Hero() {
         </div>
 
         <div className="relative hidden h-[420px] lg:col-span-5 lg:block">
-          {/* 3D scene renders behind; this column reserves space and adds a subtle frame */}
           <div className="pointer-events-none absolute inset-6 rounded-3xl border border-soft" />
           <div className="pointer-events-none absolute inset-0 animate-floaty">
             <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-3xl" />
