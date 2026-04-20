@@ -70,8 +70,7 @@ export function Hero() {
           >
             {profile.name}.
             <br />
-            {/* ✅ FIXED: w-fit added here, correctly placed */}
-            <span className="inline-block w-fit bg-gradient-to-br from-indigo-300 via-sky-300 to-fuchsia-300 bg-clip-text text-transparent">
+            <span className="inline-block w-fit bg-gradient-to-br from-indigo-300 via-sky-300 to-fuchsia-300 bg-clip-text text-transparent [-webkit-text-fill-color:transparent]">
               {profile.title}.
             </span>
           </motion.h1>
@@ -99,14 +98,14 @@ export function Hero() {
               View projects
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
-            
+            <a
               href={profile.cvUrl}
               className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-soft bg-soft px-5 py-3 text-sm font-medium transition-colors hover:bg-white/10"
             >
               <Download className="h-4 w-4" />
               Download CV
             </a>
-            
+            <a
               href={`mailto:${profile.email}`}
               className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-muted transition-colors hover:text-foreground"
             >
